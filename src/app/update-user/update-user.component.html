@@ -1,0 +1,45 @@
+<div class="container nhsSystemType_box">
+
+  <h2 class="NhsSystem-header">Update User</h2>
+  <!-- <form [formGroup]="form" (ngSubmit)="save(form.value)">
+
+    <div>
+      <mat-form-field>
+        <input type="email" matInput name="userEmail" placeholder="Email" formControlName="userEmail">
+      </mat-form-field>
+    </div>
+    <div>
+      <button [disabled]="!form.valid" mat-raised-button color="primary">Save</button>
+    </div>
+  </form> -->
+  <!-- <button type="button" data-target="#myModal"><i class="material-icons"  (click)="addUser();">&#xE7FE;</i></button> -->
+    <button type="button" data-target="#myModal" data-toggle="modal"><i class="material-icons" (click)="addUser();">&#xE7FE;</i></button>
+  <div class="col-sm-12">
+    <table class="table table-hover table-responsive">
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Contact Number</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tr>
+          <td colspan="8" *ngIf="user.length==0">
+            <p class="NhsSystem-header"> User not found</p>
+          </td>
+      </tr>
+      <tr *ngFor='let users of user'>
+        <td>{{users.first_name}}</td>
+        <td>{{users.last_name}}</td>
+        <td>{{users.email}}</td>
+        <td>{{users.phone}}</td>
+        <td>
+            <button class="btn btn-xs btn-primary" (click)="editUser(users)"><i class="glyphicon glyphicon-pencil over"></i></button>
+            <button  class="btn btn-xs btn-danger" (click)="userDelete(users);"><i class="glyphicon glyphicon-remove over"></i></button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

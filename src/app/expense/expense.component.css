@@ -1,0 +1,11 @@
+.nhsSystemType_box{
+	background-color: #fefefe;
+	border:solid 1px #ccc;
+	padding: 0px 15px;
+}
+.NhsSystem-header{
+  text-align: center;
+}
+.help-block{
+	color: #a94442;
+}

@@ -1,0 +1,46 @@
+
+    <!-- <div class="modal-content"> -->
+
+      <!-- Modal Header -->
+      <div>
+      <div  class="modal-header">
+        <h2 class="modal-title">Add User</h2>
+        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+
+          <div>
+            <mat-form-field>
+              <input type="text" matInput name="First Name" placeholder="First Name" formControlName="userFirstName">
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field>
+              <input type="text" matInput name="Last Name" placeholder="Last Name" formControlName="userLastName">
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field>
+              <input type="email" matInput name="userEmail" placeholder="Email" formControlName="userEmail">
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field>
+              <input type="number" matInput name="mobileNumber" placeholder="Mobile Number" formControlName="userMobileNumber">
+            </mat-form-field>
+          </div>
+        </form>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" (click)="cancel();" class="btn btn-danger" data-dismiss="myModal">Close</button>
+        <div>
+          <button type="submit" [disabled]="!form.valid" (click)="onSubmit(form.value,$event)" mat-raised-button color="primary">Save</button>
+        </div>
+      </div>
+    </div>
+    <!-- </div> -->
