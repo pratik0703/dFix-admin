@@ -5,22 +5,28 @@ import {MatNativeDateModule}	from '@angular/material';
 import {MatInputModule} from '@angular/material';
 import { Ng2FilterPipeModule } from 'ng2-filter-pipe';
 import {Http,Response} from '@angular/http';
+import { EditExpenseComponent } from '../popup/edit-expense/edit-expense.component';
+import {MatDialog, MatDialogRef} from '@angular/material';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {NgxPaginationModule} from 'ngx-pagination';
 @Component({
   selector: 'app-expense',
   templateUrl: './expense.component.html',
   styleUrls: ['./expense.component.css']
 })
 export class ExpenseComponent implements OnInit {
-  constructor( public http:Http) { }
+  constructor(public http:Http,private modalService: NgbModal,public dialog:MatDialog) { }
   fromDate = new FormControl("");
   toDate=new FormControl("");
   maxDate =new Date();
+   p: number = 1;
   // minDate=new Date();
 form;
 submitted;
 createExpense;
 createAllExpense;
 searchEX;
+updatedExpense;
 getExpenseBetweenDate(fromDate,toDates){
 this.submitted=true;
 if(toDates ==''){
@@ -34,14 +40,10 @@ if(toDates ==''){
     this.submitted=false;
   }
 }
-//update
-updateUser(expense){
-console.log(expense);
-}
 resetSearch(){
   this.searchEX=false;
   this.createExpense = this.createAllExpense;
-  console.log(this.fromDate.value);
+  //console.log(this.fromDate.value);
   this.fromDate =new  FormControl("");
   this.toDate=new FormControl("");
             //$scope.searchKeyword = undefined;
@@ -50,25 +52,43 @@ resetSearch(){
 getFilteredArray(arr,startDate,endDate){
   return arr.filter(function(e1) {
               //console.log(e1);
-                var mnDate = new Date(e1.createdDate);
-                console.log(mnDate);
+                var mnDate = new Date(e1.created_at);
                 mnDate.setHours(0, 0, 0, 0);
                 startDate.setHours(0, 0, 0, 0);
                 endDate.setHours(0, 0, 0, 0);
                 return mnDate >= startDate && mnDate <= endDate;
             });
 }
+//edit expense
+editExpense(expense){
+console.log(expense)
+let dialogRef= this.dialog.open(EditExpenseComponent,{
+  data:expense
+});
+dialogRef.afterClosed().subscribe(result => {
+  if(result){
+  this.updatedExpense=JSON.parse(result._body);
+  if(this.updatedExpense.success){
+    this.getCurrentExpense();
+  }
+  //this.datas=result.data;
+}
+});
+}
+getCurrentExpense(){
+this.http.get('http://localhost:3333/api/getExpense').
+map((response)=>response.json()).
+subscribe(
+(data)=>{
+  this.createExpense=data.data;
+  this.createAllExpense=  data.data;
+},err=>{
+  console.log("Something Went Wrong");
+}
+)
+}
   ngOnInit() {
-  this.http.post('http://localhost:3333/api/get-today-expense',{"userId":"5a8da717c283f71ec44f41e2"}).
-  map((response)=>response.json()).
-  subscribe(
-    (data)=>{
-      this.createExpense=data.data;
-      this.createAllExpense=  data.data;
-    },err=>{
-      console.log("Something Went Wrong");
-    }
-  )
+this.getCurrentExpense();
     // this.createExpense=
     // this.createAllExpense=
     this.form = new FormGroup({

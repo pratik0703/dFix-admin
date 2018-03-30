@@ -1,3 +1,15 @@
-<p>
-  login works!
-</p>
+<div class="login-form">
+  <form [formGroup]="form" >
+  <div class="form-input">
+  <input type="text" placeholder="User Name" formControlName="email">
+  <i class="fa fa-user"></i>
+</div>
+<div class="form-input">
+<input type="text" placeholder="Password" formControlName="password">
+<i class="fa fa-lock"></i>
+</div>
+<div>
+  <button type="submit" (click)="login(form)" class="btn btn-inverse btn-lg btn-login">Log in</button>
+</div>
+</form>
+</div>

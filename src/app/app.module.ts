@@ -36,6 +36,13 @@ import { ExpenseComponent } from './expense/expense.component';
 import { Ng2FilterPipeModule } from 'ng2-filter-pipe';
 import { FilterPipe} from './filter.pipe';
 import { EditExpenseComponent } from './popup/edit-expense/edit-expense.component';
+import { AgmCoreModule } from '@agm/core';
+import { MapViewComponent } from './map-view/map-view.component';
+import {NgxPaginationModule} from 'ngx-pagination';
+import { AuthService } from './services/auth.service';
+import { configData } from "./../config";
+import { CookieService } from 'ngx-cookie-service';
+import { HttpClientModule } from '@angular/common/http';
 // import { MdFormFieldModule } from '@angular/material';
 // import { MdInputModule } from '@angular/material';
 
@@ -48,12 +55,18 @@ import { EditExpenseComponent } from './popup/edit-expense/edit-expense.componen
     EditUserComponent,
     FilterPipe ,
     ExpenseComponent,
-    EditExpenseComponent
+    EditExpenseComponent,
+    MapViewComponent
   ],
   imports: [
     BrowserModule,
+    NgxPaginationModule,
+    HttpClientModule,
   FormsModule,
   HttpModule,
+  AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAIHqfJmMS9bE5RlqeuiUdhDncqhJo3rO0'
+    }),
   NgbModule.forRoot(),
   MatDialogModule,
   Ng2FilterPipeModule,
@@ -77,7 +90,8 @@ import { EditExpenseComponent } from './popup/edit-expense/edit-expense.componen
       component:AddUserComponent},{
         path:'login',
         component:LoginComponent
-      },{
+      },{path:'',
+      component:LoginComponent},{
         path:'update-user',
         component:UpdateUserComponent
       },{
@@ -86,10 +100,18 @@ import { EditExpenseComponent } from './popup/edit-expense/edit-expense.componen
       },{
         path:'expense',
         component:ExpenseComponent
+      },{
+        path:'map-view',
+        component:MapViewComponent
+      },{
+        path:'edit-expense',
+        component:EditExpenseComponent
       }
   ]),
   ],
-  providers: [],
+  providers: [AuthService,
+              configData,
+              CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
