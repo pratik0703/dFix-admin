@@ -12,20 +12,20 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatDialog, MatDialogRef,MAT_DIALOG_DATA} from '@angular/material';
 import { Router } from '@angular/router';
-
+import { configData} from "../../../config";
 @Component({
   selector: 'app-edit-user',
   templateUrl: './edit-user.component.html',
   styleUrls: ['./edit-user.component.css']
 })
 export class EditUserComponent implements OnInit {
-  constructor(public http:Http,public dialogRef:MatDialogRef<EditUserComponent>,
+  constructor(public http:Http,private configData:configData,public dialogRef:MatDialogRef<EditUserComponent>,
   @Inject(MAT_DIALOG_DATA) public data: any) {
    }
    onSubmit(user){
      user.userId=this.data._id;
      console.log(user);
-     this.http.post('http://localhost:3333/api/update-user', user)
+     this.http.post(this.configData.api+'/api/update-user', user)
          .subscribe(
            res => {
              //window.location.reload();

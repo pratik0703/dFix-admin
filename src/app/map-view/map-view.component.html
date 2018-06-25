@@ -1,3 +1,32 @@
-<agm-map [latitude]="lat" [longitude]="lng">
-    <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+<nav class="navbar navbar-expand">
+  <form class="form-inline">
+    <mat-form-field>
+  <mat-select placeholder="Users" [(ngModel)]="users" [ngModelOptions]="{standalone: true}">
+    <mat-option *ngFor="let users of user" [value]="users">
+      {{users.first_name}}
+    </mat-option>
+
+  </mat-select>
+</mat-form-field>
+  <mat-form-field>
+        <input matInput [matDatepicker]="picker" [max]="maxDate" [(ngModel)]="date" [formControl]="fromDate" placeholder="Choose From date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+    <button class="btn btn-success" (click)="test(users,date)" type="submit">Search</button>
+  </form>
+</nav>
+<div class="col-sm-12">
+<agm-map  [latitude]="23.033863" [zoom]="zoom" [scrollwheel]="scrollwheel"  [longitude]="72.585022">
+        <ng-container>
+          <agm-marker   *ngFor="let map of mapArray[0].location; let i = index"  [latitude]="map.latitude" [longitude]="map.longitude">
+
+            <agm-polyline *ngFor="let map of mapArray;let i = index;"  [strokeColor]="blue">
+              <agm-polyline-point *ngFor="let map of mapArray[0].location" [latitude]="map.latitude" [longitude]="map.longitude">
+              </agm-polyline-point>
+          </agm-polyline>
+            </agm-marker>
+        </ng-container>
 </agm-map>
+</div>

@@ -3,7 +3,7 @@ import {FormControl,FormGroup,Validators} from '@angular/forms';
 import {Http,Response} from '@angular/http';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatDialog, MatDialogRef,MAT_DIALOG_DATA} from '@angular/material';
-
+import { configData} from "../../../config";
 @Component({
   selector: 'app-edit-expense',
   templateUrl: './edit-expense.component.html',
@@ -11,7 +11,7 @@ import {MatDialog, MatDialogRef,MAT_DIALOG_DATA} from '@angular/material';
 })
 export class EditExpenseComponent implements OnInit {
 
-  constructor(public http:Http,public dialogRef:MatDialogRef<EditExpenseComponent>,
+  constructor(public http:Http,private configData:configData,public dialogRef:MatDialogRef<EditExpenseComponent>,
   @Inject(MAT_DIALOG_DATA) public data: any) { }
   expense=this.data
   cancel(){
@@ -21,7 +21,7 @@ export class EditExpenseComponent implements OnInit {
     this.expense.userName=expense.userName;
     this.expense.description=expense.description;
     this.expense.expenseAmount=expense.expenseAmount;
-    this.http.post('http://localhost:3333/api/update-expense', this.expense)
+    this.http.post(this.configData.api+'/api/update-expense', this.expense)
         .subscribe(
           res => {
             this.dialogRef.close(res);

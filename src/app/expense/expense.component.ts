@@ -4,18 +4,21 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule}	from '@angular/material';
 import {MatInputModule} from '@angular/material';
 import { Ng2FilterPipeModule } from 'ng2-filter-pipe';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import {Http,Response} from '@angular/http';
 import { EditExpenseComponent } from '../popup/edit-expense/edit-expense.component';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {NgxPaginationModule} from 'ngx-pagination';
+import {MatIconModule} from '@angular/material/icon';
+import { configData } from "../../config";
 @Component({
   selector: 'app-expense',
   templateUrl: './expense.component.html',
   styleUrls: ['./expense.component.css']
 })
 export class ExpenseComponent implements OnInit {
-  constructor(public http:Http,private modalService: NgbModal,public dialog:MatDialog) { }
+  constructor(public http:Http,private modalService: NgbModal,public dialog:MatDialog,private configData:configData) { }
   fromDate = new FormControl("");
   toDate=new FormControl("");
   maxDate =new Date();
@@ -49,6 +52,19 @@ resetSearch(){
             //$scope.searchKeyword = undefined;
             //$scope.searchMn = false;
 }
+//delete expense
+deleteExpense(expense,index){
+expense.expenseId=expense._id;
+    this.http.post(this.configData.api+'/api/delete-expense',expense).
+    map((response)=>response.json()).
+    subscribe(
+    (data)=>{
+      this.createExpense.splice(this.createExpense.indexOf(expense), 1);
+    },err=>{
+      console.log("Something Went Wrong");
+    }
+    )
+}
 getFilteredArray(arr,startDate,endDate){
   return arr.filter(function(e1) {
               //console.log(e1);
@@ -76,7 +92,7 @@ dialogRef.afterClosed().subscribe(result => {
 });
 }
 getCurrentExpense(){
-this.http.get('http://localhost:3333/api/getExpense').
+this.http.get(this.configData.api+'/api/getExpense').
 map((response)=>response.json()).
 subscribe(
 (data)=>{

@@ -12,7 +12,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatDialog, MatDialogRef,MAT_DIALOG_DATA} from '@angular/material';
 import { Router } from '@angular/router';
-
+import { configData} from "../../../config";
 @Component({
   selector: 'app-add-user',
   templateUrl: './add-user.component.html',
@@ -23,7 +23,7 @@ export class AddUserComponent implements OnInit {
     this.dialogRef.close();
   }
   onSubmit(user,event){
-    this.http.post('http://localhost:3333/api/add-user', {
+    this.http.post(this.configData.api+'/api/add-user', {
         email: user.userEmail,
         firstName:user.userFirstName,
         lastName:user.userLastName,
@@ -31,6 +31,7 @@ export class AddUserComponent implements OnInit {
       })
         .subscribe(
           res => {
+            console.log(res)
             //window.location.reload();
             //if(res){
             this.dialogRef.close(res);
@@ -43,7 +44,7 @@ export class AddUserComponent implements OnInit {
         );
     //console.log(this.userEmail);
   }
-  constructor(public http:Http,public dialogRef:MatDialogRef<AddUserComponent>,
+  constructor(public http:Http,private configData:configData,public dialogRef:MatDialogRef<AddUserComponent>,
   @Inject(MAT_DIALOG_DATA) public data: any) { }
 //  public users=[];
   form;

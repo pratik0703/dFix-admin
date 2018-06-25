@@ -1,0 +1,86 @@
+.login-box{
+  width: 380px;
+  margin: 0 auto;
+  padding-top: 22vh;
+  /* background-color: #ffffff; */
+}
+.login-page {
+  height: 100vh !important;
+  background-image: url("../../assets/img/bg'.png");
+  background-size: cover;
+  background-position: 0 -179px;
+}
+
+.checkbox, .radio {
+  position: relative;
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.icheck>label {
+  padding-left: 0;
+}
+
+.login-input-box {
+  width: 100% !important;
+}
+
+.checkbox label, .radio label {
+  min-height: 20px;
+  padding-left: 20px;
+  margin-bottom: 0;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.login-logobox {
+  background-color: #000000;
+  padding: 10px 0px;
+  margin-bottom: 0px;
+  border-radius: 6px 6px 0px 0px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12);
+}
+
+.img-responsive {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+img.img-click-logo {
+  margin: 0 auto;
+}
+
+.login-box-body {
+  border-radius: 0px 0px 6px 6px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12);
+  padding: 0 10px;
+}
+
+.signIn-btn {
+  border-radius: 4px;
+  border: solid 1px #ff4823;
+  background-color: #ffffff;
+  color: #ff4823;
+}
+
+.signIn-btn:hover {
+  background-color: #ff4823;
+  border: solid 1px #ff4823;
+  color: #ffffff;
+  outline: 0;
+}
+
+.mat-input-icon {
+  position: relative;
+  top: 6px;
+}
+
+a.text-llink {
+  color: #0076dc;
+}
+
+a.text-llink:hover, a.text-llink:hover:focus {
+  color: #0089ff;
+}

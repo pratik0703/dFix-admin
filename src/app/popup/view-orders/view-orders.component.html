@@ -1,0 +1,42 @@
+<div class="col-sm-12">
+    <div class="table-responsive scrollmenu">
+      <table scrolling="yes" class="table table-bordered table-hover table-striped" class="table table-condensed">
+        <thead>
+          <th>Name</th>
+          <th>Created Date</th>
+          <th></th>
+          <th>Organization</th>
+          <th>Item</th>
+          <th>Quantity</th>
+          <th>Price</th>
+        </thead>
+        <tbody>
+          <tr>
+                  <td colspan="6" *ngIf="!orders">
+                      Meeting  not found
+                  </td>
+              </tr>
+          <tr *ngFor="let order of orders | filter:searchKeyword | paginate: { itemsPerPage: 2, currentPage: p }">
+                  <td>{{order.user_name}}</td>
+                  <td>{{order.created_at|date:'dd/MM/yyyy'}}<td>
+                  <td></td>
+                  <td>{{order.item_name}}</td>
+                  <td>{{order.item_quantity}}</td>
+                  <td>{{order.item_price}}</td>
+              </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div>
+  <pagination-controls
+                (pageChange)="p = $event"
+                maxSize="1000"
+                directionLinks="true"
+                autoHide="true"
+                previousLabel="Previous"
+                nextLabel="Next"
+                screenReaderPaginationLabel="Pagination"
+                screenReaderPageLabel="page">
+</pagination-controls>
+</div>

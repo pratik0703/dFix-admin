@@ -1,0 +1,4 @@
+<agm-map class="col-sm-12"  [latitude]="23.033863" [zoom]="zoom" [scrollwheel]="scrollwheel"  [longitude]="72.585022">
+    <agm-marker  *ngFor="let maps of mapArray"   [title]="maps.user_name"  [latitude]="convertStringToNumber(maps.current_location.latitude)" [longitude]="convertStringToNumber(maps.current_location.longitude)">
+        </agm-marker>
+</agm-map>

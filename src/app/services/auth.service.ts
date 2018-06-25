@@ -20,14 +20,18 @@ export class AuthService {
       data
     );
   }
+  goForUserDetails(token) {
+    return this.http
+      .get(this.configData.api + '/api/users/me',
+      { headers: new HttpHeaders({ 'Authorization': 'Bearer ' + token}) });
+  }
   login(data){
     let promise = new Promise((resolve,reject) => {
       this.fetchToken(data)
         .subscribe(res => {
           var response = res;
-          console.log("response ", response);
-          // if (response.token != undefined) { response.token}
-          this.cookieService.set('token', response.token);
+          this.cookieService.set('token', response.data.token);
+          this.goForUserDetails(response.data.token)
           resolve(res);
         }, err => {
           reject(err);

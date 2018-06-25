@@ -41,6 +41,7 @@
   							</div>
           </div>
           </div>
+
           <div class="col-sm-12">
 							<div class="table-responsive scrollmenu">
 								<table scrolling="yes" class="table table-bordered table-hover table-striped" class="table table-condensed">
@@ -49,7 +50,8 @@
                     <th>Description</th>
                     <th>Amount</th>
                     <th>Created Date</th>
-                    <th>action</th>
+                    <th>Receipt</th>
+                    <th>Action</th>
                   </thead>
                   <tbody>
                     <tr>
@@ -58,15 +60,16 @@
                                 Expense not found
                             </td>
                         </tr>
-                    <tr *ngFor="let expense of createExpense | filter:searchKeyword | paginate: { itemsPerPage: 30, currentPage: p }">
+                    <tr *ngFor="let expense of createExpense | filter:searchKeyword | paginate: { itemsPerPage: 20, currentPage: p }">
                       <td>{{expense.user_name}}</td>
                       <td>{{expense.description}}</td>
                       <td>{{expense.expense_amount}}</td>
                       <td>{{expense.created_at | date:'dd/MMM/yyyy'}}</td>
+                      <td><img class="image" src="{{configData.api}}/{{expense.image_url}}"></td>
                       <td>
                         <div>
 														<button class="btn btn-xs btn-primary" (click)="editExpense(expense)"><i class="glyphicon glyphicon-pencil over"></i></button>
-														<button class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-remove over"></i></button>
+														<button class="btn btn-xs btn-danger"(click)="deleteExpense(expense,$index)"><i class="glyphicon glyphicon-remove over"></i></button>
 
 												</div>
                       </td>

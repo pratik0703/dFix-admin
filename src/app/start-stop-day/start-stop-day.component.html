@@ -1,0 +1,88 @@
+<div class="container" style="margin-top:30px">
+<div class="col-md-12">
+  <div class="panel panel-default">
+			<div class="panel-heading">
+        <h3 class="panel-title"><strong>Day</strong></h3>
+      </div>
+      <div class="panel-body">
+  <div class="row">
+  <div class="col-sm-4">
+    <div class="form-group">
+      <label>Search:</label>
+      <input type="text" class="form-control" [(ngModel)]="searchKeyword" [ngModelOptions]="{standalone: true}" placeholder="Expense"><br>
+    </div>
+  </div>
+  <div class="col-sm-8">
+  <div class="col-sm-4">
+    <mat-form-field>
+        <input matInput [matDatepicker]="picker" [max]="maxDate" [formControl]="fromDate" placeholder="Choose From date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <p class="help-block" *ngIf="fromDate.value == '' && submitted">From Date is required</p>
+  </div>
+  <div class="col-sm-4">
+    <mat-form-field>
+      <input matInput [formControl]="toDate"  name="toDate" [matDatepicker]="picker1" [min]="minDate" placeholder="Choose To date">
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+    <p class="help-block" *ngIf="toDate.value == '' && submitted">To Date is required</p>
+  </div>
+  <div class="col-sm-4">
+        <div class="form-group">
+          <label>&nbsp;</label>
+          <p class="input-group">
+            <button class="btn btn-primary" type="submit" (click)="getStartDayBetweenDate(fromDate.value,toDate.value)">Search</button> &nbsp;
+            <button class="btn btn-primary" *ngIf="searchEX" (click)="resetSearch()">Reset</button>
+          </p>
+        </div>
+      </div>
+</div>
+</div>
+<div class="col-sm-12">
+    <div class="table-responsive scrollmenu">
+      <table scrolling="yes" class="table table-bordered table-hover table-striped" class="table table-condensed">
+        <thead>
+          <th>Name</th>
+          <th>Start Day</th>
+          <th>Stop Day</th>
+          <th>KM</th>
+          <th>Created Date</th>
+          <th>Action</th>
+        </thead>
+        <tbody>
+          <tr>
+                  <td colspan="6" *ngIf="!summaryDetails">
+                      summaryDetails  not found
+                  </td>
+              </tr>
+          <tr *ngFor="let day of summaryDetails | filter:searchKeyword | paginate: { itemsPerPage: 30, currentPage: p }">
+                  <td>{{day.user_name}}</td>
+                  <td>{{day.start_time | date:'h:mm a'}} <img class="image" src="{{configData.api}}{{day.start_image}}"></td>
+                  <td>{{day.end_time| date:'h:mm a'}} <img *ngIf="day.end_image" class="image" src="{{configData.api}}{{day.end_image}}"></td>
+                  <td>{{day.start_km}}-{{day.end_km}}Km</td>
+                  <td>{{day.created_at| date: 'dd/MM/yyyy'}}</td>
+                  <td *ngIf="newDate != checkDate(day.start_time)"><button class="btn btn-success btn-xs" disabled>Reset</button></td>
+                  <td *ngIf="newDate == checkDate(day.start_time)"><button class="btn btn-success btn-xs" *ngIf="newDate == checkDate(day.start_time)" (click)="resetEndTime(day)">Reset</button></td>
+
+              </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div>
+  <pagination-controls
+                (pageChange)="p = $event"
+                maxSize="1000"
+                directionLinks="true"
+                autoHide="true"
+                previousLabel="Previous"
+                nextLabel="Next"
+                screenReaderPaginationLabel="Pagination"
+                screenReaderPageLabel="page">
+</pagination-controls>
+</div>
+</div>
+</div>
+</div>
